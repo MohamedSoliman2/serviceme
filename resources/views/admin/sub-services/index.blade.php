@@ -1,5 +1,5 @@
-@section('title', 'الخدمات')
-@section('description', 'الخدمات')
+@section('title', 'الخدمات الفرعية')
+@section('description', 'الخدمات الفرعية')
 @extends('layout.parentdash')
 @section('content')
     <div class="crm mb-25">
@@ -7,11 +7,11 @@
             <div class="row ">
                 <div class="col-lg-12 flex justify-content-between">
                     <div class="breadcrumb-main flex justify-content-between">
-                        <h4 class="text-capitalize breadcrumb-title">الخدمات</h4>
+                        <h4 class="text-capitalize breadcrumb-title">الخدمات الفرعية</h4>
                         <div class="">
-                            <a href="{{ route('services.create') }}" class="btn btn-primary">
+                            <a href="{{ route('sub-services.create') }}" class="btn btn-primary">
                                 <span class="uil uil-plus"></span>
-                                إضافة خدمه
+                                إضافة خدمه فرعية
                             </a>
                         </div>
                     </div>
@@ -29,24 +29,25 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>الخدمه</th>
+                                        <th>الخدمه الرئيسية</th>
+                                        <th>الخدمه الفرعية</th>
                                         <th>الصورة</th>
-                                        <th>المحافظة</th>
                                         <th>الإجراءات</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($services as $service)
+                                    @forelse ($subservices as $subservice)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $service->name }}</td>
-                                            <td><img src="{{ asset('storage/' . $service->image) }}"
-                                                    alt="{{ $service->name }}" style="width: 50px; height: 50px;"></td>
-                                            <td>{{ $service->governorate->name }}</td>
+                                            <td>{{ $subservice->name }}</td>
+                                            <td>{{ $subservice->name }}</td>
+                                            <td><img src="{{ asset('storage/' . $subservice->image) }}"
+                                                    alt="{{ $subservice->name }}" style="width: 50px; height: 50px;"></td>
                                             <td class="d-flex gap-2">
-                                                <a href="{{ route('services.edit', $service->id) }}"
+                                                <a href="{{ route('sub-services.edit', $subservice->id) }}"
                                                     class="btn btn-primary">تعديل</a>
-                                                <form action="{{ route('services.destroy', $service->id) }}" method="post">
+                                                <form action="{{ route('sub-services.destroy', $subservice->id) }}"
+                                                    method="post">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger">حذف</button>
@@ -55,7 +56,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="5" class="text-center my-5">لا يوجد خدمات</td>
+                                            <td colspan="6" class="text-center my-5">لا يوجد خدمات فرعية</td>
                                         </tr>
                                     @endforelse
                                 </tbody>
