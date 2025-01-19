@@ -25,28 +25,44 @@
                     @endif
                     <div class="card">
                         <div class="card-body">
-                            <table class="table table-bordered">
+                            <table class="table mb-0 table-borderless">
                                 <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>المحافظه</th>
-                                        <th>الإجراءات</th>
+                                    <tr class="userDatatable-header">
+                                        <th>
+                                            <span class="userDatatable-title">#</span>
+                                        </th>
+                                        <th>
+                                            <span class="userDatatable-title">المحافظه</span>
+                                        </th>
+                                        <th>
+                                            <span class="userDatatable-title">الإجراءات</span>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @forelse ($governorates as $governorate)
                                         <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $governorate->name }}</td>
-                                            <td class="d-flex gap-2">
-                                                <a href="{{ route('governorates.edit', $governorate->id) }}"
-                                                    class="btn btn-primary">تعديل</a>
-                                                <form action="{{ route('governorates.destroy', $governorate->id) }}"
-                                                    method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger">حذف</button>
-                                                </form>
+                                            <td>
+                                                <div class="userDatatable-content">
+                                                    {{ $loop->iteration }}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="userDatatable-content">
+                                                    {{ $governorate->name }}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="userDatatable-content d-flex gap-2">
+                                                    <a href="{{ route('governorates.edit', $governorate->id) }}"
+                                                        class="btn btn-primary">تعديل</a>
+                                                    <form action="{{ route('governorates.destroy', $governorate->id) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger">حذف</button>
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
                                     @empty
@@ -56,6 +72,9 @@
                                     @endforelse
                                 </tbody>
                             </table>
+                            <div class="pagination-container d-flex justify-content-end pt-25">
+                                {{ $governorates->links('pagination::bootstrap-5') }}
+                            </div>
                         </div>
                     </div>
                 </div>

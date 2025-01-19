@@ -25,40 +25,66 @@
                     @endif
                     <div class="card">
                         <div class="card-body">
-                            <table class="table table-bordered">
+                            <table class="table mb-0 table-borderless">
                                 <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>الخدمه</th>
-                                        <th>العنوان</th>
-                                        <th>الصورة</th>
-                                        <th>الإجراءات</th>
+                                    <tr class="userDatatable-header">
+                                        <th>
+                                            <span class="userDatatable-title">#</span>
+                                        </th>
+                                        <th>
+                                            <span class="userDatatable-title">الخدمه</span>
+                                        </th>
+                                        <th>
+                                            <span class="userDatatable-title">العنوان</span>
+                                        </th>
+                                        <th>
+                                            <span class="userDatatable-title">الصورة</span>
+                                        </th>
+                                        <th>
+                                            <span class="userDatatable-title">الإجراءات</span>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @forelse ($servicePosts as $servicePost)
                                         <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $servicePost->service->name }}</td>
-                                            <td>{{ $servicePost->title }}</td>
                                             <td>
-                                                @if ($servicePost->image)
-                                                    <img src="{{ asset('storage/' . $servicePost->image) }}"
-                                                        alt="{{ $servicePost->service->name }}"
-                                                        style="width: 50px; height: 50px;">
-                                                @else
-                                                    <span class="text-danger">لا يوجد صورة</span>
-                                                @endif
+                                                <div class="userDatatable-content">
+                                                    {{ $loop->iteration }}
+                                                </div>
                                             </td>
-                                            <td class="d-flex gap-2">
-                                                <a href="{{ route('service-posts.edit', $servicePost->id) }}"
-                                                    class="btn btn-primary">تعديل</a>
-                                                <form action="{{ route('service-posts.destroy', $servicePost->id) }}"
-                                                    method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger">حذف</button>
-                                                </form>
+                                            <td>
+                                                <div class="userDatatable-content">
+                                                    {{ $servicePost->service->name }}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="userDatatable-content">
+                                                    {{ $servicePost->title }}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="userDatatable-content">
+                                                    @if ($servicePost->image)
+                                                        <img src="{{ asset('storage/' . $servicePost->image) }}"
+                                                            alt="{{ $servicePost->service->name }}"
+                                                            style="width: 50px; height: 50px;">
+                                                    @else
+                                                        <span class="text-danger">لا يوجد صورة</span>
+                                                    @endif
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="userDatatable-content d-flex gap-2">
+                                                    <a href="{{ route('service-posts.edit', $servicePost->id) }}"
+                                                        class="btn btn-primary">تعديل</a>
+                                                    <form action="{{ route('service-posts.destroy', $servicePost->id) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger">حذف</button>
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
                                     @empty

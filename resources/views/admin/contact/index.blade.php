@@ -1,5 +1,5 @@
-@section('title', 'الاسئله الشائعه')
-@section('description', 'الاسئله الشائعه')
+@section('title', 'الرسائل التي تم ارسالها')
+@section('description', 'الرسائل التي تم ارسالها')
 @extends('layout.parentdash')
 @section('content')
     <div class="crm mb-25">
@@ -7,22 +7,11 @@
             <div class="row ">
                 <div class="col-lg-12 flex justify-content-between">
                     <div class="breadcrumb-main flex justify-content-between">
-                        <h4 class="text-capitalize breadcrumb-title">الاسئله الشائعه</h4>
-                        <div class="">
-                            <a href="{{ route('faqs.create') }}" class="btn btn-primary">
-                                <span class="uil uil-plus"></span>
-                                إضافة اسئله
-                            </a>
-                        </div>
+                        <h4 class="text-capitalize breadcrumb-title">الرسائل التي تم ارسالها</h4>
                     </div>
                 </div>
 
                 <div class="col-lg-12">
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
                     <div class="card">
                         <div class="card-body">
                             <table class="table mb-0 table-borderless">
@@ -32,7 +21,13 @@
                                             <span class="userDatatable-title">#</span>
                                         </th>
                                         <th>
-                                            <span class="userDatatable-title">السؤال</span>
+                                            <span class="userDatatable-title">الاسم</span>
+                                        </th>
+                                        <th>
+                                            <span class="userDatatable-title">البريد الالكتروني</span>
+                                        </th>
+                                        <th>
+                                            <span class="userDatatable-title">الموضوع</span>
                                         </th>
                                         <th>
                                             <span class="userDatatable-title">الإجراءات</span>
@@ -40,7 +35,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($faqs as $faq)
+                                    @forelse ($contacts as $contact)
                                         <tr>
                                             <td>
                                                 <div class="userDatatable-content">
@@ -49,30 +44,35 @@
                                             </td>
                                             <td>
                                                 <div class="userDatatable-content">
-                                                    {{ $faq->question }}
+                                                    {{ $contact->name }}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="userDatatable-content">
+                                                    {{ $contact->email }}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="userDatatable-content">
+                                                    {{ $contact->subject }}
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="userDatatable-content d-flex gap-2">
-                                                    <a href="{{ route('faqs.edit', $faq->id) }}"
-                                                        class="btn btn-primary">تعديل</a>
-                                                    <form action="{{ route('faqs.destroy', $faq->id) }}" method="post">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger">حذف</button>
-                                                    </form>
+                                                    <a href="{{ route('contact.show', $contact->id) }}"
+                                                        class="btn btn-primary">عرض</a>
                                                 </div>
                                             </td>
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="3" class="text-center">لا يوجد اسئله</td>
+                                            <td colspan="5" class="text-center">لا يوجد رسائل</td>
                                         </tr>
                                     @endforelse
                                 </tbody>
                             </table>
                             <div class="pagination-container d-flex justify-content-end pt-25">
-                                {{ $faqs->links('pagination::bootstrap-5') }}
+                                {{ $contacts->links('pagination::bootstrap-5') }}
                             </div>
                         </div>
                     </div>
