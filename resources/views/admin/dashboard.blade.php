@@ -10,7 +10,7 @@
                         <h4 class="text-capitalize breadcrumb-title">لوحه التحكم</h4>
                     </div>
                 </div>
-                {{-- @include('components.dashboard.demo_one.analisiys') --}}
+                 @include('components.dashboard.demo_one.analisiys') 
 
 
             </div>

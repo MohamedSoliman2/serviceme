@@ -1,25 +1,18 @@
 <?php
 
-<<<<<<< HEAD
+use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\AwardsController;
 use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\TermController;
 use App\Http\Controllers\Admin\TestmonialController;
 use App\Models\awards;
 use App\Models\Blog;
 use App\Models\Testimonials;
-=======
-use App\Http\Controllers\Frontend\FaqController;
-use App\Http\Controllers\Frontend\GovernorateController;
-use App\Http\Controllers\Frontend\ServiceController;
-use App\Http\Controllers\Frontend\ServicePostController;
-use App\Http\Controllers\Frontend\SubServiceController;
->>>>>>> 35c418a8d9dadf00e18397b7b8e5fa069d0936c6
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     $title="dashboard";
     $description="dashboard";
-<<<<<<< HEAD
     $articals=Blog::count();
     $awards=awards::count();
     $testmonials=Testimonials::count();
@@ -46,17 +39,17 @@ Route::get('/admin/awards/edit/{id}',[AwardsController::class,'edit'])->name('aw
 Route::post('/admin/awards/update/{id}',[AwardsController::class,'update'])->name('admin.awards.update');
 Route::post('/admin/awards/delete/{id}',[AwardsController::class,'delete'])->name('awards.delete');
 Route::post('/upload/pui',[BlogController::class,'upload'])->name('upload');
-=======
-    return view('admin.dashboard',compact('title','description'));
-});
-
-Route::resource('governorates',GovernorateController::class)->except(['show']);
-
-Route::resource('services',ServiceController::class)->except(['show']);
-
-Route::resource('sub-services',SubServiceController::class)->except(['show']);
-
-Route::resource('service-posts',ServicePostController::class)->except(['show']);
-
-Route::resource('faqs',FaqController::class)->except(['show']);
->>>>>>> 35c418a8d9dadf00e18397b7b8e5fa069d0936c6
+//about
+Route::get('/admin/about',[AboutController::class,'index'])->name('admin.about.index');
+Route::get('/admin/about/create',[AboutController::class,'create'])->name('about.create');
+Route::post('/admin/about/store',[AboutController::class,'store'])->name('about.store');
+Route::get('/admin/about/edit/{id}',[AboutController::class,'edit'])->name('about.edit');
+Route::post('/admin/about/update/{id}',[AboutController::class,'update'])->name('admin.about.update');
+Route::post('/admin/about/delete/{id}',[AboutController::class,'delete'])->name('about.delete');
+//terms
+Route::get('/admin/terms',[TermController::class,'index'])->name('admin.terms.index');
+Route::get('/admin/terms/create',[TermController::class,'create'])->name('terms.create');
+Route::post('/admin/terms/store',[TermController::class,'store'])->name('terms.store');
+Route::get('/admin/terms/edit/{id}',[TermController::class,'edit'])->name('terms.edit');
+Route::post('/admin/terms/update/{id}',[TermController::class,'update'])->name('admin.terms.update');
+Route::post('/admin/terms/delete/{id}',[TermController::class,'delete'])->name('terms.delete');
