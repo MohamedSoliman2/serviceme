@@ -15,6 +15,7 @@ trait ResponseTrait
         }
         return $message;
     }
+
     public function returnSuccessMessage($msg = "")
     {
         return response()->json([
@@ -23,6 +24,7 @@ trait ResponseTrait
             "data" => (object) [],
         ], Response::HTTP_OK);
     }
+
     private function returnSuccess($message, $statusCode)
     {
         return response()->json([
@@ -32,6 +34,8 @@ trait ResponseTrait
             'data' => [],
         ], $statusCode);
     }
+
+
     public function returnError($msg, $status = Response::HTTP_NOT_FOUND)
     {
         return response()->json([
@@ -41,12 +45,12 @@ trait ResponseTrait
             'data' => (object) [],
         ], $status);
     }
+
     public function returnErrorMessage($msg = "")
     {
         return response()->json([
             'message' => $msg,
         ], Response::HTTP_NOT_FOUND);
-
     }
     public function returnData($key, $value, $msg = "")
     {
@@ -56,10 +60,12 @@ trait ResponseTrait
             $key => $value,
         ], Response::HTTP_OK);
     }
+
     public function returnValidationError($code = 'E0001', $validator)
     {
         return $this->returnError($code, $validator->errors()->first());
     }
+
     public function getErrorCode($input)
     {
         if ($input == "name") {
@@ -76,28 +82,39 @@ trait ResponseTrait
             return 'E006';
         }
     }
+
     public function returnCodeAccordingToInput($validator)
     {
         $inputs = array_keys($validator->errors()->toArray());
         $code = $this->getErrorCode($inputs[0]);
         return $code;
     }
-    public function validateError($status,$msg){
+    public function validateError($status, $msg)
+    {
         return response()->json([
             'result' => "false",
             'status' => $status,
             'message' => $msg->errors()->first(),
-           
+
         ], $status);
     }
-    public function errorvalidate($status,$validator) {
+
+    public function errorvalidate($status, $validator)
+    {
         return response()->json([
             'result' => "false",
             'status' => $status,
             'errors' => $validator->errors(),
-           
-        ], $status); 
-    }
-  
 
+        ], $status);
+    }
+
+    public function apiResponse($success = true, $message = "", $statusCode = 200, $data = [])
+    {
+        return response()->json([
+            'success' => $success,
+            'message' => $message,
+            'data' => $data
+        ], $statusCode);
+    }
 }

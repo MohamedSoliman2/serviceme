@@ -25,33 +25,61 @@
                     @endif
                     <div class="card">
                         <div class="card-body">
-                            <table class="table table-bordered">
+                            <table class="table mb-0 table-borderless">
                                 <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>الخدمه الرئيسية</th>
-                                        <th>الخدمه الفرعية</th>
-                                        <th>الصورة</th>
-                                        <th>الإجراءات</th>
+                                    <tr class="userDatatable-header">
+                                        <th>
+                                            <span class="userDatatable-title">#</span>
+                                        </th>
+                                        <th>
+                                            <span class="userDatatable-title">الخدمه الرئيسية</span>
+                                        </th>
+                                        <th>
+                                            <span class="userDatatable-title">الخدمه الفرعية</span>
+                                        </th>
+                                        <th>
+                                            <span class="userDatatable-title">الصورة</span>
+                                        </th>
+                                        <th>
+                                            <span class="userDatatable-title">الإجراءات</span>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @forelse ($subservices as $subservice)
                                         <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $subservice->name }}</td>
-                                            <td>{{ $subservice->name }}</td>
-                                            <td><img src="{{ asset('storage/' . $subservice->image) }}"
-                                                    alt="{{ $subservice->name }}" style="width: 50px; height: 50px;"></td>
-                                            <td class="d-flex gap-2">
-                                                <a href="{{ route('sub-services.edit', $subservice->id) }}"
-                                                    class="btn btn-primary">تعديل</a>
-                                                <form action="{{ route('sub-services.destroy', $subservice->id) }}"
-                                                    method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger">حذف</button>
-                                                </form>
+                                            <td>
+                                                <div class="userDatatable-content">
+                                                    {{ $loop->iteration }}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="userDatatable-content">
+                                                    {{ $subservice->name }}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="userDatatable-content">
+                                                    {{ $subservice->name }}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="userDatatable-content">
+                                                    <img src="{{ asset('storage/' . $subservice->image) }}"
+                                                        alt="{{ $subservice->name }}" style="width: 50px; height: 50px;">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="userDatatable-content d-flex gap-2">
+                                                    <a href="{{ route('sub-services.edit', $subservice->id) }}"
+                                                        class="btn btn-primary">تعديل</a>
+                                                    <form action="{{ route('sub-services.destroy', $subservice->id) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger">حذف</button>
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
                                     @empty
@@ -61,6 +89,9 @@
                                     @endforelse
                                 </tbody>
                             </table>
+                            <div class="pagination-container d-flex justify-content-end pt-25">
+                                {{ $subservices->links('pagination::bootstrap-5') }}
+                            </div>
                         </div>
                     </div>
                 </div>
