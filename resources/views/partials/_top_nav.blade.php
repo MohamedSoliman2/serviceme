@@ -91,7 +91,7 @@
         <div class="navbar-left">
             <div class="logo-area">
                 <a class="navbar-brand" href="">
-                  beauty
+                 اخدمني
                 </a>
                 <a href="#" class="sidebar-toggle">
                     <img class="svg" src="{{ asset('assets/img/svg/align-center-alt.svg') }}" alt="img"></a>
@@ -176,7 +176,7 @@
                             <a href="" class="nav-author__signout" onclick="event.preventDefault();document.getElementById('logout').submit();">
                                 <img src="{{ asset('assets/img/svg/log-out.svg') }}" alt="log-out" class="svg">
                                 تسجيل الخروج</a>
-                                <form style="display:none;" id="logout" action="#" method="POST">
+                                <form style="display:none;" id="logout" action="{{route('logout')}}" method="POST">
                                     @csrf
                                     @method('post')
                                 </form>

@@ -9,12 +9,12 @@
                     <div class="breadcrumb-main add-contact justify-content-sm-between ">
                         <div class=" d-flex flex-wrap justify-content-center breadcrumb-main__wrapper">
                             <div class="d-flex align-items-center add-contact__title justify-content-center me-sm-25">
-                                <h4 class="text-capitalize fw-500 breadcrumb-title">كل المقالات</h4>
+                                <h4 class="text-capitalize fw-500 breadcrumb-title">كل المنشورات صفحه المواقع</h4>
                                 <span class="sub-title ms-sm-25 ps-sm-25"></span>
                             </div>
                             <div class="action-btn mt-sm-0 mt-15">
-                                <a href="{{ route('blog.create') }}" class="btn px-20 btn-primary ">
-                                    <i class="las la-plus fs-16"></i>اضافه مقاله
+                                <a href="{{ route('admin.location.description.create') }}" class="btn px-20 btn-primary ">
+                                    <i class="las la-plus fs-16"></i>اضافه منشور
                                 </a>
 
                             </div>
@@ -30,7 +30,7 @@
             <div class="col-lg-12 mb-30">
                 <div class="card">
                     <div class="card-header color-dark fw-500">
-                      كل الخدمات
+                      كل المنشورات
                     </div>
                     <div class="card-body">
                         <div class="userDatatable global-shadow border-light-0 w-100">
@@ -62,10 +62,13 @@
                                     <thead>
                                         <tr class="userDatatable-header">  
                                             <th>
-                                                <span class="userDatatable-title">رقم المقاله</span>
+                                                <span class="userDatatable-title">رقم المنشور </span>
                                             </th>  
                                             <th>
-                                                <span class="userDatatable-title">وصف المقاله</span>
+                                                <span class="userDatatable-title">عنوان المنشور</span>
+                                            </th>
+                                            <th>
+                                                <span class="userDatatable-title">وصف المنشور</span>
                                             </th>
     
                                             <th>
@@ -89,6 +92,11 @@
                                                             {{    $count+1 }} 
                                                         </div>
                                                     </td>
+                                                    <td>
+                                                        <div class="userDatatable-content">
+                                                            {{    $blog->header }} 
+                                                        </div>
+                                                    </td>
                                                     <td >
                                                         <div class="userDatatable-content" style="width: 750px;overflow: hidden;max-height: 90px;">
                                                             {!!   $blog->description !!} 
@@ -105,7 +113,7 @@
                                                           
 
                                                             <li>
-                                                                <a href="{{ route('blogs.edit', $blog->id) }}"
+                                                                <a href="{{ route('admin.location.description.edit', $blog->id) }}"
                                                                     class="edit">
                                                                     <i class="uil uil-edit"></i>
                                                                 </a>
@@ -125,7 +133,7 @@
                                                                 </a>
 
                                                                 <form style="display:none;" id="delete-{{ $blog->id }}"
-                                                                    action="{{ route('blogs.delete',$blog->id) }}"
+                                                                    action="{{ route('admin.location.description.delete',$blog->id) }}"
                                                                     method="POST">
                                                                     @csrf
                                                                     @method('post')

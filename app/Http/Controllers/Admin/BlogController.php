@@ -25,7 +25,7 @@ class BlogController extends Controller
     }
     public function store(Request $request)
     {
-        $request->validate(['title' => ['required', 'min:3', 'max:200'], 'description' => ['required']]);
+        $request->validate(['description' => ['required']]);
         Blog::create($request->all());
         return redirect()->route('admin.blog.index')->with('massage', 'تم انشاء المقاله بنجاح');
     }
@@ -43,7 +43,7 @@ class BlogController extends Controller
 
     public function update(Request $request, string $id)
     {
-        $request->validate(['title' => ['required', 'min:3', 'max:200'], 'description' => ['required']]);
+        $request->validate([ 'description' => ['required']]);
         $blog = Blog::where('id', $id)->first();
         if ($blog) {
             $blog->update($request->all());

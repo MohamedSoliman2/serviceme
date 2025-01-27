@@ -57,14 +57,24 @@
                         </div>
                         @endif
                         <div class="card-body mt-2">
-                        <form action="{{ route('admin.blog.update',$blog->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('admin.location.description.update',$blog->id) }}" method="POST" enctype="multipart/form-data">
                             
                             @csrf
                            
                           
                             <div class="row">
                                 
-
+                                <div class="col-sm-6">
+                                    <div class="form-group mt-2">
+                                    <label for="header" > العنوان <span
+                                            class="text-danger">*</span></label>
+                                    <input type="text"  class="form-control mt-2"
+                                        name="header" value="{{$blog->header}}" id="header" placeholder="العنوان">
+                                    @if ($errors->has('header'))
+                                        <p class="text-danger">{{ $errors->first('header') }}</p>
+                                    @endif
+                                </div>
+                                </div>
                                 <div class="col-sm-12">
                                     <div class="form-group mt-2">
                                     <label for="description" >التفاصيل</label>

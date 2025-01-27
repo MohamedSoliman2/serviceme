@@ -9,15 +9,19 @@
                     <div class="breadcrumb-main add-contact justify-content-sm-between ">
                         <div class=" d-flex flex-wrap justify-content-center breadcrumb-main__wrapper">
                             <div class="d-flex align-items-center add-contact__title justify-content-center me-sm-25">
-                                <h4 class="text-capitalize fw-500 breadcrumb-title">كل المقالات</h4>
+                                <h4 class="text-capitalize fw-500 breadcrumb-title"> المقالات</h4>
                                 <span class="sub-title ms-sm-25 ps-sm-25"></span>
                             </div>
+                            @if ($blogs->count()==0)
+
                             <div class="action-btn mt-sm-0 mt-15">
-                                <a href="{{ route('blog.create') }}" class="btn px-20 btn-primary ">
+                                <a href="{{ route('blog.page.create') }}" class="btn px-20 btn-primary ">
                                     <i class="las la-plus fs-16"></i>اضافه مقاله
                                 </a>
 
                             </div>
+                                                        
+                            @endif
                           
                            
                         </div>
@@ -62,10 +66,10 @@
                                     <thead>
                                         <tr class="userDatatable-header">  
                                             <th>
-                                                <span class="userDatatable-title">رقم المقاله</span>
+                                                <span class="userDatatable-title">العنوان </span>
                                             </th>  
                                             <th>
-                                                <span class="userDatatable-title">وصف المقاله</span>
+                                                <span class="userDatatable-title"> الصوره</span>
                                             </th>
     
                                             <th>
@@ -86,12 +90,12 @@
                                                 <tr>
                                                     <td>
                                                         <div class="userDatatable-content">
-                                                            {{    $count+1 }} 
+                                                            {{    $blog->title }} 
                                                         </div>
                                                     </td>
-                                                    <td >
-                                                        <div class="userDatatable-content" style="width: 750px;overflow: hidden;max-height: 90px;">
-                                                            {!!   $blog->description !!} 
+                                                    <td style="width: 750px;overflow: hidden;max-height: 90px;">
+                                                        <div class="userDatatable-content">
+                                                        <img src="{{url('/')}}/../storage/app/public/{{$blog->image}} " alt="" width="50" height="50" style="border-radius: 50%;">   
                                                         </div>
                                                     </td>
                                                    
@@ -105,32 +109,12 @@
                                                           
 
                                                             <li>
-                                                                <a href="{{ route('blogs.edit', $blog->id) }}"
+                                                                <a href="{{ route('blogs.page.edit', $blog->id) }}"
                                                                     class="edit">
                                                                     <i class="uil uil-edit"></i>
                                                                 </a>
 
-                                                                 <li>
-                                                                <a
-                                                                    href="#"
-                                                                    class="remove"
-                                                                    onclick="
-                                                                        event.preventDefault();
-                                                                        if ( confirm('Are you sure you want to delete ?') ) {
-                                                                            document.getElementById( 'delete-{{ $blog->id }}' ).submit();
-                                                                        }
-                                                                    "
-                                                                >
-                                                                    <i class="uil uil-trash-alt"></i>
-                                                                </a>
-
-                                                                <form style="display:none;" id="delete-{{ $blog->id }}"
-                                                                    action="{{ route('blogs.delete',$blog->id) }}"
-                                                                    method="POST">
-                                                                    @csrf
-                                                                    @method('post')
-                                                                </form>
-                                                            </li>
+                                                               
                                                             </li>
                                                             
                                                         </ul>
@@ -143,33 +127,7 @@
                             </div>
                         </div>
 
-                        <div class="pagination-container d-flex justify-content-end pt-25">
-                            {{ $blogs->links( 'pagination::bootstrap-5' ) }}
-
-                            <ul class="dm-pagination d-flex">
-                                <li class="dm-pagination__item">
-                                    <div class="paging-option">
-                                        <select name="page-number" class="page-selection" onchange="updatePagination( event )">
-                                            <option value="20" {{ 20 == $blogs->perPage() ? 'selected' : '' }}>20/page</option>
-                                            <option value="40" {{ 40 == $blogs->perPage() ? 'selected' : '' }}>40/page</option>
-                                            <option value="60" {{ 60 == $blogs->perPage() ? 'selected' : '' }}>60/page</option>
-                                        </select>
-                                        <a href="/pagination-per-page/20" class="d-none per-page-pagination"></a>
-                                    </div>
-                                </li>
-                            </ul>
-
-                            <script>
-                                function updatePagination( event ) {
-                                    var per_page = event.target.value;
-
-                                    const per_page_link = document.querySelector( '.per-page-pagination' );
-                                    per_page_link.setAttribute( 'href', '/pagination-per-page/' + per_page  );
-
-                                    per_page_link.click();
-                                }
-                            </script>
-                        </div>
+                      
                     </div>
                 </div>
             </div>
