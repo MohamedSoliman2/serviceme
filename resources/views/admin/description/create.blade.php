@@ -8,7 +8,7 @@
      
                 .ck-editor__editable[role="textbox"] {
                     
-                    min-height: 500px;
+                    min-height: 200px;
                 }
                 .ck-content .image {
                     
@@ -33,7 +33,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="d-flex align-items-center user-member__title mb-30 mt-30">
-                    <h4 class="text-capitalize">تعديل مقاله</h4>
+                    <h4 class="text-capitalize">اضافه منشور</h4>
                 </div>
             </div>
         </div>
@@ -57,19 +57,29 @@
                         </div>
                         @endif
                         <div class="card-body mt-2">
-                        <form action="{{ route('admin.blog.update',$blog->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('admin.location.description.store') }}" method="POST" enctype="multipart/form-data">
                             
                             @csrf
                            
                           
                             <div class="row">
-                                
+                                <div class="col-sm-6">
+                                    <div class="form-group mt-2">
+                                    <label for="header" > العنوان <span
+                                            class="text-danger">*</span></label>
+                                    <input type="text"  class="form-control mt-2"
+                                        name="header" value="{{ old('header') }}" id="header" placeholder="العنوان">
+                                    @if ($errors->has('header'))
+                                        <p class="text-danger">{{ $errors->first('header') }}</p>
+                                    @endif
+                                </div>
+                                </div>
 
                                 <div class="col-sm-12">
                                     <div class="form-group mt-2">
                                     <label for="description" >التفاصيل</label>
-                                    <textarea class="form-control mt-2" name="description" style="height: 675px;padding:20px;"
-                                    id="editor" >{{$blog->description}}</textarea>
+                                    <textarea class="form-control mt-2" name="description" style="height: 700px;padding:20px;"
+                                    id="editor" >{{ old('description') }}</textarea>
                                 </div>
                                 @if ($errors->has('description'))
                                         <p class="text-danger">{{ $errors->first('description') }}</p>
@@ -84,7 +94,7 @@
                               
                                 <div class="button-group d-flex pt-25 justify-content-md-ceter justify-content-center" style="margin-bottom: 90px;">
                                     <button type="submit"
-                                        class="btn btn-primary btn-default btn-squared radius-md shadow2 btn-sm">تعديل</button>
+                                        class="btn btn-primary btn-default btn-squared radius-md shadow2 btn-sm">اضافه</button>
                                 </div>
 
                             </div>
@@ -96,42 +106,42 @@
         </div>
     </div>
     <script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/ckeditor.js"></script>
-    <script>
-    
+<script>
+
+    ClassicEditor
+        .create( document.querySelector( '#editor' ),{
+          ckfinder:{
+            uploadUrl:"{{route('upload',['_token'=>csrf_token()])}}"
+          }
+        } )
+        .catch( error => {
+            console.error( error );
+        } );
+
         ClassicEditor
-            .create( document.querySelector( '#editor' ),{
-              ckfinder:{
-                uploadUrl:"{{route('upload',['_token'=>csrf_token()])}}"
-              }
-            } )
-            .catch( error => {
-                console.error( error );
-            } );
-    
-            ClassicEditor
-            .create( document.querySelector( '#edity' ),{
-              ckfinder:{
-                uploadUrl:"{{route('upload',['_token'=>csrf_token()])}}"
-              }
-            }  )
-            .catch( error => {
-                console.error( error );
-            } );
-     
-    
-    
-    function  disapper (){
-      $masa=document.querySelector('#notifydead');
-      $masa.style.cssText="display:none";
-    }
-    img=document.querySelector('#image1');
-        im=document.querySelector('#im1');
-    function clicek(img,im){
-        img.addEventListener('click',function () {
-            im.click();
-        img.setAttribute('src',im.value);
-    });
-    }
-    clicek(img,im);
-    </script>
+        .create( document.querySelector( '#edity' ),{
+          ckfinder:{
+            uploadUrl:"{{route('upload',['_token'=>csrf_token()])}}"
+          }
+        }  )
+        .catch( error => {
+            console.error( error );
+        } );
+ 
+
+
+function  disapper (){
+  $masa=document.querySelector('#notifydead');
+  $masa.style.cssText="display:none";
+}
+img=document.querySelector('#image1');
+    im=document.querySelector('#im1');
+function clicek(img,im){
+    img.addEventListener('click',function () {
+        im.click();
+    img.setAttribute('src',im.value);
+});
+}
+clicek(img,im);
+</script>
 @endsection
