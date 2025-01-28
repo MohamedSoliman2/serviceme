@@ -57,6 +57,8 @@ class GovernorateController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255|unique:governorates,name,' . $id,
+            'latitude' => 'required|string|max:255',
+            'longitude' => 'required|string|max:255',
         ]);
 
         $governorate = Governorate::findOrFail($id);
