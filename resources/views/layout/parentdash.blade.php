@@ -1,14 +1,16 @@
 @include('partials._header')
 <style>
-    label{
+    label {
         text-transform: capitalize;
     }
-    </style>
+</style>
+
 <body class="layout-light side-menu" style="font-family:'Cairo', sans-serif; ">
     <div class="mobile-search">
         <form action="/" class="search-form">
             <img src="{{ asset('assets/img/svg/search.svg') }}" alt="search" class="svg">
-            <input class="form-control me-sm-2 box-shadow-none" type="search" placeholder="Search..." aria-label="Search">
+            <input class="form-control me-sm-2 box-shadow-none" type="search" placeholder="Search..."
+                aria-label="Search">
         </form>
     </div>
     <div class="mobile-author-actions"></div>
@@ -17,7 +19,7 @@
     </header>
     <main class="main-content">
         <div class="sidebar-wrapper">
-        <aside class="sidebar sidebar-collapse" id="sidebar">
+            <aside class="sidebar sidebar-collapse" id="sidebar">
                 @include('partials.studentmenu')
             </aside>
         </div>
@@ -56,6 +58,8 @@
     <script src="{{ asset('assets/js/plugins.min.js') }}"></script>
     <script src="{{ asset('assets/js/script.min.js') }}"></script>
     <script src="{{ asset('js/app.min.js') }}"></script>
-    
+    @stack('scripts')
+
 </body>
+
 </html>

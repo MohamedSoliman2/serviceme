@@ -32,6 +32,8 @@ class GovernorateController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255|unique:governorates,name',
+            'latitude' => 'required|string|max:255',
+            'longitude' => 'required|string|max:255',
         ]);
 
         Governorate::create($request->all());

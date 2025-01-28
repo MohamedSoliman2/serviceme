@@ -44,6 +44,7 @@ Route::middleware('auth')->group(function () {
         $testmonials = Testimonials::count();
         return view('admin.dashboard', compact('title', 'description', 'articals', 'awards', 'testmonials'));
     })->name('home');
+
     Route::get('/admin/blog', [BlogController::class, 'index'])->name('admin.blog.index');
     Route::get('/admin/blog/create', [BlogController::class, 'create'])->name('blog.create');
     Route::post('/admin/blog/store', [BlogController::class, 'store'])->name('blog.store');

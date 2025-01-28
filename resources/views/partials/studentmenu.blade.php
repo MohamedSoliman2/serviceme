@@ -225,7 +225,7 @@
         </li>
 
         <li>
-            <a href="{{ route('terms.index') }}" class="i">
+            <a href="{{ route('admin.terms.index') }}" class="i">
                 <span class="nav-icon uil uil-file"></span>
                 <span class="menu-text">صفحة الشروط والأحكام</span>
             </a>
