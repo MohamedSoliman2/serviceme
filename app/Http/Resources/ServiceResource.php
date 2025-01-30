@@ -24,6 +24,7 @@ class ServiceResource extends JsonResource
                 'name' => $this->governorate->name,
             ] : null,
             'parent_id' => $this->parent_id,
+            'sub_services' => ServiceResource::collection($this->whenLoaded('subServices')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

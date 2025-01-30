@@ -15,9 +15,9 @@ class SubServiceController extends Controller
      */
     public function index()
     {
-        $subservices = Service::whereNotNull('parent_id')->paginate(20);
+        $subservices = Service::whereNotNull('parent_id')->with('parent')->paginate(20);
 
-        return view('admin.sub-services.index',compact('subservices'));
+        return view('admin.sub-services.index', compact('subservices'));
     }
 
     /**
@@ -25,8 +25,8 @@ class SubServiceController extends Controller
      */
     public function create()
     {
-        $services=Service::whereNull('parent_id')->get();
-        return view('admin.sub-services.create',compact('services'));
+        $services = Service::whereNull('parent_id')->get();
+        return view('admin.sub-services.create', compact('services'));
     }
 
     /**
@@ -35,22 +35,22 @@ class SubServiceController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'=>'required',
-            'description'=>'required',
-            'parent_id'=>'required',
-            'image'=>'required',
+            'name' => 'required',
+            'description' => 'required',
+            'parent_id' => 'required',
+            'image' => 'required',
         ]);
 
-        $path = $this->saveImage($request,'image');
+        $path = $this->saveImage($request, 'image');
 
-        $subservice=new Service();
-        $subservice->name=$request->name;
-        $subservice->description=$request->description;
-        $subservice->parent_id=$request->parent_id;
-        $subservice->image=$path;
+        $subservice = new Service();
+        $subservice->name = $request->name;
+        $subservice->description = $request->description;
+        $subservice->parent_id = $request->parent_id;
+        $subservice->image = $path;
         $subservice->save();
 
-        return redirect()->route('sub-services.index')->with('success','تم اضافة الخدمه الفرعية بنجاح');
+        return redirect()->route('sub-services.index')->with('success', 'تم اضافة الخدمه الفرعية بنجاح');
     }
 
 
@@ -62,43 +62,43 @@ class SubServiceController extends Controller
 
     public function edit(string $id)
     {
-        $subservice=Service::find($id);
-        $services=Service::whereNull('parent_id')->get();
-        return view('admin.sub-services.edit',compact('subservice','services'));
+        $subservice = Service::find($id);
+        $services = Service::whereNull('parent_id')->get();
+        return view('admin.sub-services.edit', compact('subservice', 'services'));
     }
 
 
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'name'=>'required',
-            'description'=>'required',
-            'parent_id'=>'required',
-            'image'=>'required',
+            'name' => 'required',
+            'description' => 'required',
+            'parent_id' => 'required',
+            'image' => 'required',
         ]);
 
-        $subservice=Service::find($id);
+        $subservice = Service::find($id);
 
-        if($request->hasFile('image')){
-            $path=$this->updateimage($request,'image',$subservice->image);
+        if ($request->hasFile('image')) {
+            $path = $this->updateimage($request, 'image', $subservice->image);
         }
 
         $subservice->update([
-            'name'=>$request->name,
-            'description'=>$request->description,
-            'parent_id'=>$request->parent_id,
-            'image'=>$path ?? $subservice->image,
+            'name' => $request->name,
+            'description' => $request->description,
+            'parent_id' => $request->parent_id,
+            'image' => $path ?? $subservice->image,
         ]);
 
-        return redirect()->route('sub-services.index')->with('success','تم تعديل الخدمه الفرعية بنجاح');
+        return redirect()->route('sub-services.index')->with('success', 'تم تعديل الخدمه الفرعية بنجاح');
     }
 
 
     public function destroy(string $id)
     {
-        $subservice=Service::find($id);
+        $subservice = Service::find($id);
         $this->deleteImage($subservice->image);
         $subservice->delete();
-        return redirect()->route('sub-services.index')->with('success','تم حذف الخدمه الفرعية بنجاح');
+        return redirect()->route('sub-services.index')->with('success', 'تم حذف الخدمه الفرعية بنجاح');
     }
 }

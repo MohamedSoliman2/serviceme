@@ -55,7 +55,7 @@
                                             </td>
                                             <td>
                                                 <div class="userDatatable-content">
-                                                    {{ $subservice->name }}
+                                                    {{ $subservice->parent->name }}
                                                 </div>
                                             </td>
                                             <td>
